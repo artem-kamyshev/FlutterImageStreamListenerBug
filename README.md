@@ -1,6 +1,7 @@
-# bug
+# Not a bug
 
-A new Flutter project.
+Not a bug actually. ImageProvider loads image asynchronously outside of a main UI isolate, thus we
+need tester.runAsync test test it.
 
 ## Getting Started
 

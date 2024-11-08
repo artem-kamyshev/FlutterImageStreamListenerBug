@@ -63,12 +63,17 @@ class Thumbnail extends StatefulWidget {
 
 class ThumbnailState extends State<Thumbnail> {
   ui.Image? _image;
+  Completer<ui.Image>? completer;
 
   @override
   void initState() {
+    completer = Completer<ui.Image>();
     widget.thumbnailImage.image
         .resolve(const ImageConfiguration())
         .addListener(ImageStreamListener((image, synchronousCall) {
+      if (!completer!.isCompleted) {
+        completer!.complete(image.image);
+      }
       if (_image == null) {
         setState(() {
           _image = image.image;
